@@ -1,0 +1,18 @@
+Images in eg_images/
+
+astronaut_300x300.png   Eileen Collins, NASA. Public domain.
+maple_800x600.png       "Sun on Maple Leaves, South Side, 2019-11-02" by Cbaile19. CC0.
+                        https://commons.wikimedia.org/wiki/File:Sun_on_Maple_Leaves,_South_Side,_2019-11-02.jpg
+pumpkins_800x533.png    "Halloween Pumpkins" by Gabby Orcutt (Unsplash). CC0.
+                        https://commons.wikimedia.org/wiki/File:Halloween_Pumpkins_(Unsplash).jpg
+ballpark_800x600.png    "Sold Out Miller Park" by Jeramey Jannene. CC BY 2.0, resized.
+                        https://commons.wikimedia.org/wiki/File:Sold_Out_Miller_Park_(11669999).jpg
+                        https://creativecommons.org/licenses/by/2.0/
+coffee_600x400.png      Rachel Michetti, courtesy of Pikolo Espresso Bar. CC0.
+retina_700x700.png      "Fundus photograph of normal left eye" by Mikael Haggstrom. CC0.
+                        https://commons.wikimedia.org/wiki/File:Fundus_photograph_of_normal_left_eye.jpg
+cat_451x300.png         "Chelsea" by Stefan van der Walt. CC0.
+chelsea_300x200.png     The same photo, smaller.
+rocket_640x427.png      DSCOVR launch on Falcon 9, SpaceX. Public domain.
+
+The coffee, cat, rocket, astronaut and retina images are from the scikit-image sample data.
