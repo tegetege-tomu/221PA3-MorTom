@@ -15,6 +15,7 @@
 #ifndef HEAP_H
 #define HEAP_H
 
+#include <algorithm>
 #include <cstddef>
 #include <stdexcept>
 #include <vector>
@@ -25,10 +26,7 @@ public:
 
   /** Adds t to the heap. */
   void push(const T &t) {
-    /*if (size == capacity)
-      growArray();*/  //need???
-    // size++;       //do i need it?
-    data_[size()] = t;
+    data_.push_back(t);
     heapifyUp(size());
   }
 
@@ -37,8 +35,7 @@ public:
     if (empty())
       throw std::out_of_range("pop from an empty heap");
     T minVal = data_[1];
-    data_[1] = data_[size()];
-    // size--;    //need i do?
+    data_[1] = data_.back();
     heapifyUp(1);
     return minVal;
   }
@@ -66,20 +63,17 @@ private:
   //================HELPERS=====================
   bool hasAChild(int i) const { return 2 * i <= size(); }
 
-  int minChild(int i) const {
+  size_t minChild(int i) const {
     // assume already checked hasAChild(i).
-    int left = 2 * i;
-    int right = 2 * i + 1;
-
-    if (right <= size() && data_[right] < data_[left])
-      return right;
-    return left;
+    if (right <= size() && data_[right(i)] < data_[left(i)])
+      return right(i);
+    return left(i);
   }
   //================HINDERERS===================
 
   /** Moves data_[i] up until it is not smaller than its parent. */
   void heapifyUp(size_t i) {
-    if (i > 0) {
+    if (i > 1) {
       if (data_[i] < data_[parent(i)]) {
         swap(data_[i], data_[parent(i)]);
         heapifyUp(parent(i));
@@ -90,8 +84,8 @@ private:
   /** Moves data_[i] down until neither child is smaller than it. */
   void heapifyDown(size_t i) {
     if (hasAChild(i)) {
-      int minChildIndex = minChild(i);
-      if (data_(minChildIndex) < data_(i)) {
+      size_t minChildIndex = minChild(i);
+      if (data_[minChildIndex] < data_[i]) {
         swap(data_[i], data_[minChildIndex]);
         heapifyDown(minChildIndex);
       }
