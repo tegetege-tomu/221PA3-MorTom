@@ -36,7 +36,9 @@ public:
       throw std::out_of_range("pop from an empty heap");
     T minVal = data_[1];
     data_[1] = data_.back();
-    heapifyDown(1);
+    data_.pop_back(); // convenient!
+    if (!empty())
+      heapifyDown(1);
     return minVal;
   }
 
