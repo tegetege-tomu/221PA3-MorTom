@@ -10,58 +10,93 @@
  * double, or a struct that defines operator<, like Frontier in crystals.h).
  *
  * @author CS 221: Basic Algorithms and Data Structures
-**/
+ **/
 
 #ifndef HEAP_H
 #define HEAP_H
 
-#include <vector>
+#include <cstddef>
 #include <stdexcept>
+#include <vector>
 
-template <class T>
-class MinHeap {
+template <class T> class MinHeap {
 public:
-    MinHeap() : data_(1) {}   // data_[0] is the unused slot
+  MinHeap() : data_(1) {} // data_[0] is the unused slot
 
-    /** Adds t to the heap. */
-    void push(const T& t) {
-        // Your code here
-    }
+  /** Adds t to the heap. */
+  void push(const T &t) {
+    /*if (size == capacity)
+      growArray();*/  //need???
+    // size++;       //do i need it?
+    data_[size()] = t;
+    heapifyUp(size());
+  }
 
-    /** Removes and returns the smallest item. */
-    T pop() {
-        if (empty()) throw std::out_of_range("pop from an empty heap");
-        // Your code here
-        return data_[1];   // replace this line
-    }
+  /** Removes and returns the smallest item. */
+  T pop() {
+    if (empty())
+      throw std::out_of_range("pop from an empty heap");
+    T minVal = data_[1];
+    data_[1] = data_[size()];
+    // size--;    //need i do?
+    heapifyUp(1);
+    return minVal;
+  }
 
-    /** Returns the smallest item, without removing it. */
-    const T& peek() const {
-        if (empty()) throw std::out_of_range("peek at an empty heap");
-        // Your code here
-        return data_[1];   // replace this line
-    }
+  /** Returns the smallest item, without removing it. */
+  const T &peek() const {
+    if (empty())
+      throw std::out_of_range("peek at an empty heap");
+    // Your code here
+    // //NO NEED! // //
+    return data_[1]; // replace this line //NO NEED //
+  }
 
-    unsigned int size() const { return data_.size() - 1; }
+  unsigned int size() const { return data_.size() - 1; }
 
-    bool empty() const { return data_.size() == 1; }
+  bool empty() const { return data_.size() == 1; }
 
 private:
-    std::vector<T> data_;
+  std::vector<T> data_;
 
-    static size_t parent(size_t i) { return i / 2; }
-    static size_t left(size_t i) { return 2 * i; }
-    static size_t right(size_t i) { return 2 * i + 1; }
+  static size_t parent(size_t i) { return i / 2; }
+  static size_t left(size_t i) { return 2 * i; }
+  static size_t right(size_t i) { return 2 * i + 1; }
 
-    /** Moves data_[i] up until it is not smaller than its parent. */
-    void heapifyUp(size_t i) {
-        // Your code here
+  //================HELPERS=====================
+  bool hasAChild(int i) const { return 2 * i <= size(); }
+
+  int minChild(int i) const {
+    // assume already checked hasAChild(i).
+    int left = 2 * i;
+    int right = 2 * i + 1;
+
+    if (right <= size() && data_[right] < data_[left])
+      return right;
+    return left;
+  }
+  //================HINDERERS===================
+
+  /** Moves data_[i] up until it is not smaller than its parent. */
+  void heapifyUp(size_t i) {
+    if (i > 0) {
+      if (data_[i] < data_[parent(i)]) {
+        swap(data_[i], data_[parent(i)]);
+        heapifyUp(parent(i));
+      }
     }
+  }
 
-    /** Moves data_[i] down until neither child is smaller than it. */
-    void heapifyDown(size_t i) {
-        // Your code here
+  /** Moves data_[i] down until neither child is smaller than it. */
+  void heapifyDown(size_t i) {
+    if (hasAChild(i)) {
+      int minChildIndex = minChild(i);
+      if (data_(minChildIndex) < data_(i)) {
+        swap(data_[i], data_[minChildIndex]);
+        heapifyDown(minChildIndex);
+      }
     }
+  }
 };
 
 #endif
