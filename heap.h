@@ -36,7 +36,7 @@ public:
       throw std::out_of_range("pop from an empty heap");
     T minVal = data_[1];
     data_[1] = data_.back();
-    heapifyUp(1);
+    heapifyDown(1);
     return minVal;
   }
 
@@ -61,11 +61,11 @@ private:
   static size_t right(size_t i) { return 2 * i + 1; }
 
   //================HELPERS=====================
-  bool hasAChild(int i) const { return 2 * i <= size(); }
+  bool hasAChild(size_t i) const { return 2 * i <= size(); }
 
-  size_t minChild(int i) const {
+  size_t minChild(size_t i) const {
     // assume already checked hasAChild(i).
-    if (right <= size() && data_[right(i)] < data_[left(i)])
+    if (right(i) <= size() && data_[right(i)] < data_[left(i)])
       return right(i);
     return left(i);
   }
@@ -75,7 +75,7 @@ private:
   void heapifyUp(size_t i) {
     if (i > 1) {
       if (data_[i] < data_[parent(i)]) {
-        swap(data_[i], data_[parent(i)]);
+        std::swap(data_[i], data_[parent(i)]);
         heapifyUp(parent(i));
       }
     }
@@ -86,7 +86,7 @@ private:
     if (hasAChild(i)) {
       size_t minChildIndex = minChild(i);
       if (data_[minChildIndex] < data_[i]) {
-        swap(data_[i], data_[minChildIndex]);
+        std::swap(data_[i], data_[minChildIndex]);
         heapifyDown(minChildIndex);
       }
     }
