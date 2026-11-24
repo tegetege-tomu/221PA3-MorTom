@@ -33,15 +33,15 @@ Stats QuadTree::rootStats() const {
 QuadTree::Node *QuadTree::build(const PNG &img, int x, int y, int w, int h) {
   Node *nd = new Node(x, y, w, h);
 
-  if (w == 1 && h == 1)
+  if (w == 1 && h == 1) {
+    nd->block.stats = Stats(*img.getPixel(x, y));
     return nd;
+  }
 
   int leftish = (w + 1) / 2;
   int rightish = w - leftish;
   int topish = (h + 1) / 2;
   int bottomish = h - topish;
-
-  nd->kids[NW] = build(img, x, y, leftish, topish);
 
   nd->kids[NW] = build(img, x, y, leftish, topish);
 
